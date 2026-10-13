@@ -1,0 +1,180 @@
+F8 table: gripper friction floor per gtgando OpenArm dataset (definitions: floor/d2_analyze.py generic(), unit_floor.py / within_stroke.py). Nm unless noted. '!' = rests on < 30 frames (n too small).
+HF dates are upload times (UTC); a batch's episodes were recorded before its upload time. CI = 95 % interval of the median, 2000 resamples of whole episodes. Quartiles: cut points at the 25/50/75th percentiles of the indices of the episodes that contribute >= 1 frame to the closing 40-100 deg/s band; reported only if the band has >= 120 frames.
+Unit markers: config = kp_eff within 2 % of 16.01 and closed end p99.5 within 3 deg of 0; level = moving closing 40-100 dps p50 nearest of A 0.696 / B 0.203 Nm in log ratio, 'other' if more than x1.5 from both ('!' if the band has < 30 frames); range = nearer of the open ends A -55.7 / B -45.1 deg (range minimum). unit = 'other config' if config differs, else the level marker.
+
+Table 1. one row per dataset
+dataset                                  HF first         HF last            ep frames     range deg   p0.5/p99.5 kp_eff  push-close p50/p90 (n)    push-open p50/p90 (n)   move-close 40-100 p50 [CI] (n fr/ep) move-close 15-40 p50 (n, >1.5)  s pooled>=3 (dof) config    level   range  unit
+openarm_test                             2026-02-04 05:56 2026-02-04 05:56    2    982  -62.3..-17.1  -62.3/-17.1  10.73       0.808!/0.808! (7)        1.057/1.062 (326)                    n/a [n/a,n/a] (0/0)                   n/a (0)            n/a (0)  other        ?  A-like  other config
+openarm_cube_pickplace                   2026-02-04 06:26 2026-02-04 06:27   20   8867  -61.8..-2.2*   UNREADABLE data parquet (no footer; ArrowInvalid: Must pass at least one table); range from meta/stats.json; range marker A-like
+openarm_cube_pickplace_v2                2026-02-04 07:42 2026-02-04 07:42   37  16585  -61.3..-3.2*   UNREADABLE data parquet (no footer; ArrowInvalid: Must pass at least one table); range from meta/stats.json; range marker A-like
+openarm_cube_pickplace_v4                2026-02-04 07:51 2026-02-04 08:04    6   1645  -58.8..-2.7*   UNREADABLE data parquet (no footer; ArrowInvalid: Must pass at least one table); range from meta/stats.json; range marker A-like
+openarm_table_pickplace                  2026-02-11 06:56 2026-02-11 07:49   17   6712    3.0.. 57.9    3.0/ 57.9   3.58       1.629/2.254 (153)       7.436/7.758 (1716)             1.697! [1.477,1.834] (6/4)                   n/a (0)        0.1350! (2)  other   other!  B-like  other config  [signs flipped]
+openarm_table_pickplace_v2               2026-02-11 08:32 2026-02-11 08:32    9   4004  -57.6.. -3.2  -57.6/ -3.2   1.44        2.063/2.210 (47)        1.013/1.902 (218)                 2.195! [n/a,n/a] (1/1)                   n/a (0)            n/a (0)  other   other!  A-like  other config
+openarm-pick-place-50ep                  2026-03-04 11:45 2026-03-04 17:31  100  25264  -44.7.. -0.8  -41.7/ -1.5  16.01        0.295/0.547 (97)       0.886/1.282 (5617)            0.916 [0.833,0.957] (54/40)     0.901 (54, >1.5 0.15)         0.0576 (4)   same   A-like  B-like  A-like
+openarm-pick-place-clean                 2026-03-06 05:12 2026-03-06 05:12   87  22078  -44.7..-0.8*   UNREADABLE data parquet (no footer; ArrowInvalid: Must pass at least one table); range from meta/stats.json; range marker B-like
+openarm-pick-place-practice              2026-03-06 08:12 2026-03-06 08:12   10   3233  -46.2.. -0.2  -46.1/ -0.2  16.01      0.173!/0.266! (12)        1.038/1.399 (561)            0.850! [0.725,0.886] (22/8)    0.930! (10, >1.5 0.20)       0.0417! (13)   same  A-like!  B-like  A-like!
+openarm-pick-place-100ep-v2              2026-03-06 08:35 2026-03-10 07:13  150  49005  -55.7..  0.3  -51.3/ -0.1  16.01       0.286/0.545 (155)      0.852/1.292 (12004)          0.696 [0.672,0.725] (264/114)    0.784 (148, >1.5 0.25)       0.0660 (113)   same   A-like  A-like  A-like
+openarm-pick-place-blue-20ep             2026-03-06 10:08 2026-03-10 07:30   35  11381  -54.7.. -0.2  -54.7/ -0.3  16.01       0.056!/0.056! (2)       0.950/1.399 (2810)            0.679 [0.654,0.718] (74/27)    0.686! (29, >1.5 0.24)        0.0582 (39)   same   A-like  A-like  A-like
+openarm-pick-place-orange-20ep           2026-03-06 10:24 2026-03-06 10:24   20   6273  -47.2..  0.4  -47.2/  0.0  16.01      0.129!/0.295! (24)       0.779/1.214 (1480)            0.691 [0.667,0.735] (40/14)    0.696! (11, >1.5 0.36)        0.0547 (23)   same   A-like  B-like  A-like
+openarm-pick-place-yellow-20ep           2026-03-06 10:41 2026-03-06 10:41   20   6931  -46.8.. -0.8  -46.8/ -1.0  16.01       0.002!/0.002! (1)       0.838/1.150 (1577)            0.701! [0.637,0.720] (21/9)    0.774! (10, >1.5 0.40)       0.0727! (10)   same  A-like!  B-like  A-like!
+openarm-cube-organization-v2             2026-03-11 13:40 2026-03-14 18:46  120  39817  -47.7.. -0.0  -46.7/ -0.5  16.01      0.427!/0.535! (29)       0.652/0.842 (8600)          0.625 [0.613,0.637] (308/103)    0.647 (139, >1.5 0.28)       0.0595 (180)   same   A-like  B-like  A-like
+openarm-cube-organization-full-clear-v2  2026-03-11 13:40 2026-03-14 11:41   25  24696  -48.9..  0.2  -47.3/ -0.2  16.01        0.339/0.476 (61)       0.520/0.779 (7947)            0.608 [0.515,0.647] (35/15)     2.855 (33, >1.5 0.61)        0.0333 (16)   same   A-like  B-like  A-like
+openarm-pick-place-newarm                2026-03-18 13:49 2026-03-18 13:49   30   9072  -45.1..  0.5  -45.1/  0.5  16.01       0.046/0.136 (238)       0.076/0.129 (1506)            0.203 [0.188,0.208] (69/27)     0.208 (38, >1.5 0.37)        0.0187 (33)   same   B-like  B-like  B-like
+openarm-pick-place-operator-50ep         2026-03-23 08:39 2026-03-23 08:39   50  23873  -50.5..  1.8  -50.0/  0.5  16.00      0.056/0.110 (1684)       0.061/0.164 (2495)           0.164! [0.144,0.173] (23/11)    2.830! (29, >1.5 0.72)        0.0126! (9)   same  B-like!  A-like  B-like!
+* range of an unreadable dataset is the min/max of the whole recording from meta/stats.json (no 0.5 % trim).
+
+Table 2. drift within a recording: moving closing 40-100 dps |tau| p50 per episode-index quartile (n frames / episodes, episode range) [95 % CI]; bin-matched level over the common 5-deg bins
+  openarm_test                             not reported: band has 0 frames (< 120 = 4 x 30)
+  openarm_table_pickplace                  not reported: band has 6 frames (< 120 = 4 x 30)
+  openarm_table_pickplace_v2               not reported: band has 1 frames (< 120 = 4 x 30)
+  openarm-pick-place-50ep                  not reported: band has 54 frames (< 120 = 4 x 30)
+  openarm-pick-place-practice              not reported: band has 22 frames (< 120 = 4 x 30)
+  openarm-pick-place-100ep-v2              0.779 (64/29, ep 0-46) [0.745,0.808] -> 0.769 (61/28, ep 47-83) [0.737,0.818] -> 0.689 (52/28, ep 84-116) [0.657,0.730] -> 0.637 (87/29, ep 117-149) [0.623,0.647]
+                                           Q4/Q1 = 0.818; bin-matched 0.777 -> 0.776 -> 0.695 -> 0.609 over bins [-35.0, -25.0, -15.0, -10.0]
+  openarm-pick-place-blue-20ep             not reported: band has 74 frames (< 120 = 4 x 30)
+  openarm-pick-place-orange-20ep           not reported: band has 40 frames (< 120 = 4 x 30)
+  openarm-pick-place-yellow-20ep           not reported: band has 21 frames (< 120 = 4 x 30)
+  openarm-cube-organization-v2             0.618 (75/26, ep 0-26) [0.593,0.642] -> 0.603 (71/26, ep 28-62) [0.564,0.618] -> 0.640 (98/25, ep 63-88) [0.618,0.652] -> 0.645 (64/26, ep 91-119) [0.618,0.672]
+                                           Q4/Q1 = 1.043; bin-matched 0.558 -> 0.562 -> 0.610 -> 0.641 over bins [-35.0, -30.0, -25.0, -20.0, -15.0]
+  openarm-cube-organization-full-clear-v2  not reported: band has 35 frames (< 120 = 4 x 30)
+  openarm-pick-place-newarm                not reported: band has 69 frames (< 120 = 4 x 30)
+  openarm-pick-place-operator-50ep         not reported: band has 23 frames (< 120 = 4 x 30)
+
+Table 3. sessions: every upload batch (episodes added by one 'Upload folder' commit; a dataset with one commit is one batch). Moving closing |tau| p50 [95 % CI] (n frames / episodes) in the 40-100 dps band and over all closing speeds >= 15 dps; bin-matched level (datasets with >= 2 batches); first half -> second half of the batch's episodes (40-100)
+  openarm_test
+    b1 uploaded 2026-02-04 05:56 (3f7adffaa5) ep   0-  1: 40-100 no frames                                       | >=15 0.755! [n/a,n/a] (4/2) binm n/a                 | halves -
+  openarm_table_pickplace
+    b1 uploaded 2026-02-11 07:49 (348bb9c456) ep   0- 16: 40-100 1.697! [1.477,1.834] (6/4) binm n/a             | >=15 1.697! [1.477,1.844] (17/9) binm n/a            | halves 1.587! (2/2) -> 1.766! (4/2)
+  openarm_table_pickplace_v2
+    b1 uploaded 2026-02-11 08:32 (714550fa15) ep   0-  7: 40-100 2.195! [n/a,n/a] (1/1) binm n/a                 | >=15 1.758! [1.604,2.147] (10/7) binm n/a            | halves -
+  openarm-pick-place-50ep
+    b1 uploaded 2026-03-04 11:45 (61eda4a7e0) ep   0- 49: 40-100 0.979! [0.864,1.028] (19/14) binm n/a           | >=15 0.935 [0.857,1.009] (55/34) binm 0.897          | halves 1.013! (9/7) -> 0.957! (10/7)
+    b2 uploaded 2026-03-04 12:12 (2e6fd44114) ep  50- 99: 40-100 0.852 [0.789,0.940] (35/26) binm n/a            | >=15 0.901 [0.833,0.935] (73/40) binm 0.779          | halves 0.930! (18/13) -> 0.779! (17/13)
+    common bins: 40-100 [], >=15 [-35.0, -30.0, -25.0, -20.0]
+  openarm-pick-place-practice
+    b1 uploaded 2026-03-06 08:12 (fce57fade2) ep   0-  9: 40-100 0.850! [0.725,0.886] (22/8) binm n/a            | >=15 0.864 [0.818,0.899] (36/9) binm n/a             | halves 0.852! (15/4) -> 0.759! (7/4)
+  openarm-pick-place-100ep-v2
+    b1 uploaded 2026-03-06 08:35 (e955dc0884) ep   0- 49: 40-100 0.779 [0.745,0.803] (69/31) binm 0.757          | >=15 0.789 [0.750,0.818] (135/43) binm 0.782         | halves 0.769 (35/16) -> 0.784 (34/15)
+    b2 uploaded 2026-03-06 09:49 (31d0c4a770) ep  50- 99: 40-100 0.769 [0.735,0.808] (83/40) binm 0.785          | >=15 0.779 [0.750,0.821] (155/47) binm 0.788         | halves 0.750 (40/20) -> 0.799 (43/20)
+    b3 uploaded 2026-03-10 07:13 (41f0954d24) ep 100-149: 40-100 0.637 [0.628,0.647] (112/43) binm 0.627         | >=15 0.642 [0.632,0.652] (201/50) binm 0.630         | halves 0.640 (48/22) -> 0.637 (64/21)
+    common bins: 40-100 [-35.0, -30.0, -25.0, -20.0, -15.0, -10.0], >=15 [-40.0, -35.0, -30.0, -25.0, -20.0, -15.0, -10.0, -5.0]
+  openarm-pick-place-blue-20ep
+    b1 uploaded 2026-03-06 10:08 (e587ab1091) ep   0- 19: 40-100 0.789 [0.728,0.840] (32/14) binm n/a            | >=15 0.803 [0.750,0.852] (59/19) binm 0.775          | halves 0.740! (20/7) -> 0.855! (12/7)
+    b2 uploaded 2026-03-10 07:30 (9f9690bf78) ep  20- 34: 40-100 0.652 [0.630,0.698] (42/13) binm n/a            | >=15 0.662 [0.642,0.679] (69/15) binm 0.665          | halves 0.686! (24/7) -> 0.620! (18/6)
+    common bins: 40-100 [], >=15 [-35.0, -30.0, -25.0, -20.0, -15.0]
+  openarm-pick-place-orange-20ep
+    b1 uploaded 2026-03-06 10:24 (c499734df6) ep   0- 19: 40-100 0.691 [0.667,0.735] (40/14) binm n/a            | >=15 0.711 [0.681,0.750] (64/19) binm n/a            | halves 0.742! (18/7) -> 0.669! (22/7)
+  openarm-pick-place-yellow-20ep
+    b1 uploaded 2026-03-06 10:41 (3b72cc611c) ep   0- 19: 40-100 0.701! [0.637,0.720] (21/9) binm n/a            | >=15 0.713 [0.676,0.725] (40/15) binm n/a            | halves 0.701! (15/5) -> 0.679! (6/4)
+  openarm-cube-organization-v2
+    (no info.json at any revision: whole recording) 40-100 0.625 (308/103) | halves 0.611 (146/52) -> 0.642 (162/51)
+  openarm-cube-organization-full-clear-v2
+    (no info.json at any revision: whole recording) 40-100 0.608 (35/15) | halves 0.637! (21/8) -> 0.567! (14/7)
+  openarm-pick-place-newarm
+    b1 uploaded 2026-03-18 13:49 (3b219f9616) ep   0- 29: 40-100 0.203 [0.188,0.208] (69/27) binm n/a            | >=15 0.203 [0.193,0.208] (124/30) binm n/a           | halves 0.188 (38/14) -> 0.208 (31/13)
+  openarm-pick-place-operator-50ep
+    b1 uploaded 2026-03-23 08:39 (f1ad4814eb) ep   0- 49: 40-100 0.164! [0.144,0.173] (23/11) binm n/a           | >=15 0.203 [0.183,0.212] (85/39) binm n/a            | halves 0.168! (11/6) -> 0.151! (12/5)
+
+Table 4. Hugging Face metadata (UTC): createdAt, lastModified, commits, upload batches (episodes at that revision)
+  openarm_test                             created 2026-02-04 05:56  lastModified 2026-02-04 05:56  commits  2  info.json: episodes 2, frames 982, fps 30, version v3.0; frames read 982; batches: 2026-02-04 05:56 ep 0-1
+  openarm_cube_pickplace                   created 2026-02-04 06:26  lastModified 2026-02-04 06:27  commits  3  info.json: episodes 20, frames 8867, fps 30, version v3.0; frames read 0; batches: 2026-02-04 06:27 ep 0-19; load: skip unreadable file-000.parquet (ArrowInvalid)
+  openarm_cube_pickplace_v2                created 2026-02-04 07:41  lastModified 2026-02-04 07:42  commits  3  info.json: episodes 37, frames 16585, fps 30, version v3.0; frames read 0; batches: 2026-02-04 07:42 ep 0-36; load: skip unreadable file-000.parquet (ArrowInvalid)
+  openarm_cube_pickplace_v4                created 2026-02-04 07:51  lastModified 2026-02-04 08:04  commits  3  info.json: episodes 6, frames 1645, fps 30, version v3.0; frames read 0; batches: 2026-02-04 08:04 ep 0-5; load: skip unreadable file-000.parquet (ArrowInvalid)
+  openarm_table_pickplace                  created 2026-02-11 06:56  lastModified 2026-02-11 07:49  commits  3  info.json: episodes 17, frames 6712, fps 30, version v3.0; frames read 6712; batches: 2026-02-11 07:49 ep 0-16
+  openarm_table_pickplace_v2               created 2026-02-11 08:32  lastModified 2026-02-11 08:32  commits  3  info.json: episodes 8, frames 3117, fps 30, version v3.0; frames read 4004; batches: 2026-02-11 08:32 ep 0-7
+  openarm-pick-place-50ep                  created 2026-03-04 11:45  lastModified 2026-03-04 17:31  commits  4  info.json: episodes 100, frames 25264, fps 30, version v2.1; frames read 25264; batches: 2026-03-04 11:45 ep 0-49; 2026-03-04 12:12 ep 50-99
+  openarm-pick-place-clean                 created 2026-03-06 05:12  lastModified 2026-03-06 05:12  commits  3  info.json: episodes 87, frames 22078, fps 30, version v3.0; frames read 0; batches: 2026-03-06 05:12 ep 0-86; load: skip unreadable file-000.parquet (ArrowInvalid)
+  openarm-pick-place-practice              created 2026-03-06 08:12  lastModified 2026-03-06 08:12  commits  2  info.json: episodes 10, frames 3233, fps 30, version v3.0; frames read 3233; batches: 2026-03-06 08:12 ep 0-9
+  openarm-pick-place-100ep-v2              created 2026-03-06 08:35  lastModified 2026-03-10 07:13  commits  6  info.json: episodes 150, frames 49005, fps 30, version v3.0; frames read 49005; batches: 2026-03-06 08:35 ep 0-49; 2026-03-06 09:49 ep 50-99; 2026-03-10 07:13 ep 100-149
+  openarm-pick-place-blue-20ep             created 2026-03-06 10:08  lastModified 2026-03-10 07:30  commits  5  info.json: episodes 35, frames 11381, fps 30, version v3.0; frames read 11381; batches: 2026-03-06 10:08 ep 0-19; 2026-03-10 07:30 ep 20-34
+  openarm-pick-place-orange-20ep           created 2026-03-06 10:24  lastModified 2026-03-06 10:24  commits  3  info.json: episodes 20, frames 6273, fps 30, version v3.0; frames read 6273; batches: 2026-03-06 10:24 ep 0-19
+  openarm-pick-place-yellow-20ep           created 2026-03-06 10:41  lastModified 2026-03-06 10:41  commits  3  info.json: episodes 20, frames 6931, fps 30, version v3.0; frames read 6931; batches: 2026-03-06 10:41 ep 0-19
+  openarm-cube-organization-v2             created 2026-03-11 13:40  lastModified 2026-03-14 18:46  commits 234  info.json: episodes -, frames -, fps -, version -; frames read 39817; batches: -
+  openarm-cube-organization-full-clear-v2  created 2026-03-11 13:40  lastModified 2026-03-14 11:41  commits 57  info.json: episodes -, frames -, fps -, version -; frames read 24696; batches: -
+  openarm-pick-place-newarm                created 2026-03-18 13:49  lastModified 2026-03-18 13:49  commits  2  info.json: episodes 30, frames 9072, fps 30, version v3.0; frames read 9072; batches: 2026-03-18 13:49 ep 0-29
+  openarm-pick-place-operator-50ep         created 2026-03-23 08:39  lastModified 2026-03-23 08:39  commits  3  info.json: episodes 50, frames 23873, fps 30, version v3.0; frames read 23873; batches: 2026-03-23 08:39 ep 0-49
+
+Table 5. moving closing 40-100 dps band per dataset and batch: p10 / p50 / p90, share of frames with |tau| > 1.5 Nm (in contact), median |v| (deg/s), dt/dv = OLS slope of |tau| on |v| inside the band (Nm per 100 deg/s), the angle-adjusted level (each frame divided by the 100ep-v2 band's median in its 5-deg bin, median ratio times 100ep-v2's p50; removes differences in which jaw angles were visited), and the median per 5-deg bin of jaw angle (n); bins with < 5 frames left blank
+  group                                               n    p10    p50    p90  >1.5   v50  dt/dv    adj      [-45,-40)      [-40,-35)      [-35,-30)      [-30,-25)      [-25,-20)      [-20,-15)      [-15,-10)       [-10,-5)         [-5,0)
+  openarm_table_pickplace                             6  1.155  1.697  1.968  0.67  67.2    nan  1.785                                                                                                                                       
+  openarm_table_pickplace_v2                          1  2.195  2.195  2.195  1.00  94.4    nan  2.317                                                                                                                                       
+  openarm-pick-place-50ep                            54  0.701  0.916  1.063  0.02  66.3 -0.952  0.918                                                 0.755 ( 10)    0.789 ( 13)    0.969 ( 11)    0.950 (  9)    0.952 (  6)               
+  openarm-pick-place-50ep b1                         19  0.767  0.979  1.055  0.00  71.8  0.059  0.955                                                                                                                                       
+  openarm-pick-place-50ep b2                         35  0.698  0.852  1.075  0.03  63.4 -1.746  0.872                                                 0.711 (  6)    0.789 (  9)    0.940 (  8)    0.926 (  6)    0.969 (  5)               
+  openarm-pick-place-practice                        22  0.711  0.850  0.955  0.00  58.8  0.240  0.845                                                                               0.891 (  5)                                             
+  openarm-pick-place-100ep-v2                       264  0.603  0.696  0.877  0.00  64.2  0.028  0.696    0.659 (  6)    0.676 ( 13)    0.684 ( 36)    0.676 ( 27)    0.730 ( 49)    0.703 ( 28)    0.696 ( 46)    0.681 ( 42)    0.662 ( 15)
+  openarm-pick-place-100ep-v2 b1                     69  0.651  0.779  0.892  0.00  64.2 -0.004  0.770                                  0.720 (  9)    0.623 (  7)    0.806 ( 14)    0.818 (  9)    0.735 ( 15)    0.842 ( 10)               
+  openarm-pick-place-100ep-v2 b2                     83  0.676  0.769  0.905  0.00  62.5  0.107  0.781                   0.740 (  8)    0.701 ( 14)    0.750 ( 14)    0.867 ( 15)    0.872 (  5)    0.777 ( 10)    0.745 ( 11)               
+  openarm-pick-place-100ep-v2 b3                    112  0.518  0.637  0.695  0.00  64.6  0.031  0.640                                  0.505 ( 13)    0.650 (  6)    0.659 ( 20)    0.676 ( 14)    0.637 ( 21)    0.632 ( 21)    0.637 (  8)
+  openarm-pick-place-blue-20ep                       74  0.593  0.679  0.856  0.00  71.8  0.130  0.687                                  0.652 ( 11)    0.667 ( 13)    0.840 ( 12)    0.708 ( 10)    0.676 ( 13)    0.630 ( 10)               
+  openarm-pick-place-blue-20ep b1                    32  0.652  0.789  0.862  0.00  78.1  0.005  0.792                                  0.701 (  7)    0.676 (  9)    0.860 (  8)                                                            
+  openarm-pick-place-blue-20ep b2                    42  0.579  0.652  0.706  0.00  61.3  0.048  0.650                                                                               0.701 (  7)    0.672 ( 12)    0.623 (  8)               
+  openarm-pick-place-orange-20ep                     40  0.589  0.691  0.804  0.00  52.0 -0.128  0.702                                  0.620 (  6)    0.657 (  9)    0.691 (  7)                                                 0.784 (  6)
+  openarm-pick-place-yellow-20ep                     21  0.589  0.701  0.794  0.00  58.3 -0.020  0.708                                                 0.608 (  6)                                                 0.711 (  5)               
+  openarm-cube-organization-v2                      308  0.462  0.625  0.706  0.00  62.5  0.097  0.628    0.589 (  6)    0.530 ( 16)    0.469 ( 32)    0.549 ( 55)    0.623 ( 49)    0.672 ( 59)    0.640 ( 44)    0.625 ( 38)    0.662 (  9)
+  openarm-cube-organization-full-clear-v2            35  0.456  0.608  0.679  0.00  67.6  0.135  0.608                   0.505 (  9)    0.464 (  6)    0.652 (  6)    0.667 (  8)                                                            
+  openarm-pick-place-newarm                          69  0.141  0.203  0.227  0.00  68.4  0.025  0.198                                  0.139 (  6)    0.173 (  6)    0.203 ( 20)    0.217 ( 13)    0.208 (  7)    0.203 (  6)    0.198 (  6)
+  openarm-pick-place-operator-50ep                   23  0.134  0.164  0.182  0.00  70.9 -0.048  0.168    0.173 (  5)    0.159 (  9)                                                                                                         
+
+Table 6. spread of the moving closing 40-100 dps level within each unit (readable datasets with config 'same'; unit = level marker). max/min and CV over (a) datasets with >= 30 frames, (b) sessions = upload batches with >= 30 frames (single-batch datasets count as one session; a dataset with no known batches counts as one session '(whole)', dated by lastModified), (c) as (b) but including thin cells. 'adj' = the same spread of the angle-adjusted levels (Table 5)
+  unit A (a) datasets         p50 k  6  min 0.608  max 0.916  max/min 1.506  mean 0.702  CV 0.157  half-range/mean 0.219
+  unit A (a) datasets         adj k  6  min 0.608  max 0.918  max/min 1.511  mean 0.706  CV 0.157  half-range/mean 0.220
+      openarm-pick-place-50ep 0.916/adj 0.918 (n 54); openarm-pick-place-100ep-v2 0.696/adj 0.696 (n 264); openarm-pick-place-blue-20ep 0.679/adj 0.687 (n 74); openarm-pick-place-orange-20ep 0.691/adj 0.702 (n 40); openarm-cube-organization-v2 0.625/adj 0.628 (n 308); openarm-cube-organization-full-clear-v2 0.608/adj 0.608 (n 35)
+  unit A (b) sessions n>=30   p50 k  9  min 0.608  max 0.852  max/min 1.402  mean 0.711  CV 0.123  half-range/mean 0.172
+  unit A (b) sessions n>=30   adj k  9  min 0.608  max 0.872  max/min 1.435  mean 0.716  CV 0.128  half-range/mean 0.185
+      openarm-pick-place-50ep b2 0.852/adj 0.872 (n 35, up 2026-03-04); openarm-pick-place-100ep-v2 b1 0.779/adj 0.770 (n 69, up 2026-03-06); openarm-pick-place-100ep-v2 b2 0.769/adj 0.781 (n 83, up 2026-03-06); openarm-pick-place-100ep-v2 b3 0.637/adj 0.640 (n 112, up 2026-03-10); openarm-pick-place-blue-20ep b1 0.789/adj 0.792 (n 32, up 2026-03-06); openarm-pick-place-blue-20ep b2 0.652/adj 0.650 (n 42, up 2026-03-10); openarm-pick-place-orange-20ep b1 0.691/adj 0.702 (n 40, up 2026-03-06); openarm-cube-organization-v2 (whole) 0.625/adj 0.628 (n 308, up 2026-03-14); openarm-cube-organization-full-clear-v2 (whole) 0.608/adj 0.608 (n 35, up 2026-03-14)
+  unit A (c) sessions all     p50 k 12  min 0.608  max 0.979  max/min 1.610  mean 0.744  CV 0.151  half-range/mean 0.249
+  unit A (c) sessions all     adj k 12  min 0.608  max 0.955  max/min 1.573  mean 0.746  CV 0.146  half-range/mean 0.233
+      openarm-pick-place-50ep b1 0.979/adj 0.955 (n 19, up 2026-03-04); openarm-pick-place-50ep b2 0.852/adj 0.872 (n 35, up 2026-03-04); openarm-pick-place-practice b1 0.850/adj 0.845 (n 22, up 2026-03-06); openarm-pick-place-100ep-v2 b1 0.779/adj 0.770 (n 69, up 2026-03-06); openarm-pick-place-100ep-v2 b2 0.769/adj 0.781 (n 83, up 2026-03-06); openarm-pick-place-100ep-v2 b3 0.637/adj 0.640 (n 112, up 2026-03-10); openarm-pick-place-blue-20ep b1 0.789/adj 0.792 (n 32, up 2026-03-06); openarm-pick-place-blue-20ep b2 0.652/adj 0.650 (n 42, up 2026-03-10); openarm-pick-place-orange-20ep b1 0.691/adj 0.702 (n 40, up 2026-03-06); openarm-pick-place-yellow-20ep b1 0.701/adj 0.708 (n 21, up 2026-03-06); openarm-cube-organization-v2 (whole) 0.625/adj 0.628 (n 308, up 2026-03-14); openarm-cube-organization-full-clear-v2 (whole) 0.608/adj 0.608 (n 35, up 2026-03-14)
+  unit B (a) datasets         p50 k  1  min 0.203  max 0.203  max/min 1.000  mean 0.203  CV nan  half-range/mean 0.000
+  unit B (a) datasets         adj k  1  min 0.198  max 0.198  max/min 1.000  mean 0.198  CV nan  half-range/mean 0.000
+      openarm-pick-place-newarm 0.203/adj 0.198 (n 69)
+  unit B (b) sessions n>=30   p50 k  1  min 0.203  max 0.203  max/min 1.000  mean 0.203  CV nan  half-range/mean 0.000
+  unit B (b) sessions n>=30   adj k  1  min 0.198  max 0.198  max/min 1.000  mean 0.198  CV nan  half-range/mean 0.000
+      openarm-pick-place-newarm b1 0.203/adj 0.198 (n 69, up 2026-03-18)
+  unit B (c) sessions all     p50 k  2  min 0.164  max 0.203  max/min 1.239  mean 0.183  CV 0.151  half-range/mean 0.107
+  unit B (c) sessions all     adj k  2  min 0.168  max 0.198  max/min 1.175  mean 0.183  CV 0.114  half-range/mean 0.081
+      openarm-pick-place-newarm b1 0.203/adj 0.198 (n 69, up 2026-03-18); openarm-pick-place-operator-50ep b1 0.164/adj 0.168 (n 23, up 2026-03-23)
+
+Table 7. the unit card of each upload batch (d2_analyze.generic() run on that batch's episodes only), datasets with >= 2 batches: range, kp_eff, push-still closing and opening p50/p90 (n), moving closing and opening 40-100 dps p50 (n), within-stroke s pooled >= 3 (dof). Does the opening direction and the still push move with the closing level?
+  session                            uploaded             fr  ep     range deg     kp   push-close p50/p90 (n)    push-open p50/p90 (n)  move-close40 (n)   move-open40 (n)     s>=3 (dof)
+  openarm-pick-place-50ep b1         2026-03-04 11:45  12388  50  -40.9.. -0.8  16.01         0.427/0.574 (31)       0.891/1.263 (2551)          n/a (19)          n/a (15)    0.0319! (2)
+  openarm-pick-place-50ep b2         2026-03-04 12:12  12876  50  -44.7.. -1.5  16.01         0.225/0.540 (66)       0.901/1.350 (3287)        0.852 (35)          n/a (22)     0.0278 (2)
+  openarm-pick-place-100ep-v2 b1     2026-03-06 08:35  15572  50  -45.7.. -0.1  16.01        0.281/0.486 (100)       0.730/1.140 (4394)        0.779 (69)        0.750 (44)    0.0566 (25)
+  openarm-pick-place-100ep-v2 b2     2026-03-06 09:49  16282  50  -55.7.. -0.4  16.01         0.418/0.652 (38)       1.013/1.394 (4407)        0.769 (83)        1.116 (30)    0.0817 (28)
+  openarm-pick-place-100ep-v2 b3     2026-03-10 07:13  17151  50  -51.7..  0.3  16.01       0.510!/0.545! (21)       0.847/1.028 (2966)       0.637 (112)        0.789 (36)    0.0492 (60)
+  openarm-pick-place-blue-20ep b1    2026-03-06 10:08   6419  20  -50.2.. -0.5  16.01        0.056!/0.056! (2)       0.926/1.316 (1389)        0.789 (32)          n/a (22)    0.0435 (14)
+  openarm-pick-place-blue-20ep b2    2026-03-10 07:30   4962  15  -54.7.. -0.2  16.01              n/a/n/a (0)        0.852/1.092 (991)        0.652 (42)          n/a (26)    0.0298 (25)
+
+Table 8. same sessions, every card quantity, p50 [95 % episode CI] (n) and a jaw-angle-matched level 'binm' (mean of per-5-deg-bin medians, fixed 5-deg grid, over the bins every batch of the dataset fills: >= 15 frames for push-still as in generic(), >= 5 for the moving bands). Needed because the opening direction rises toward the open end (floor_ja.md F1) and the sessions reach different open ends. Split-half: p50 (n) in the odd and the even episodes of the batch, each half run through the same definitions (a within-session noise scale).
+  openarm-pick-place-50ep: common bins push-close [-35.0], push-open [-40.0, -35.0, -30.0], move-close40 [], move-open40 []
+    b1 2026-03-04 11:45: push-close 0.427 [0.007,0.574] (31) binm 0.427 [0.007,0.574]  push-open 0.891 [0.828,0.926] (2551) binm 0.916 [0.868,0.961]  move-close40 0.979! [0.864,1.028] (19) binm n/a [n/a,n/a]  move-open40 0.989! [0.806,1.143] (15) binm n/a [n/a,n/a]
+       per common bin: push-close -35:0.427(31)  push-open -40:1.209(493) -35:0.901(1638) -30:0.637(420)  move-close40 -  move-open40 -
+       split-half odd: push-close 0.427! (21) push-open 0.901 (1324) move-close40 0.965! (13) move-open40 0.901! (8)
+       split-half even: push-close 0.574! (10) push-open 0.842 (1184) move-close40 1.028! (5) move-open40 1.062! (7)
+    b2 2026-03-04 12:12: push-close 0.225 [0.017,0.501] (66) binm 0.232 [0.012,0.540]  push-open 0.901 [0.857,0.974] (3287) binm 0.865 [0.829,0.916]  move-close40 0.852 [0.789,0.940] (35) binm n/a [n/a,n/a]  move-open40 0.742! [0.640,1.004] (22) binm n/a [n/a,n/a]
+       per common bin: push-close -35:0.232(59)  push-open -40:1.223(1187) -35:0.818(1652) -30:0.554(323)  move-close40 -  move-open40 -
+       split-half odd: push-close 0.217 (55) push-open 0.901 (1463) move-close40 0.867! (16) move-open40 0.681! (3)
+       split-half even: push-close 0.540! (11) push-open 0.852 (1647) move-close40 0.852! (19) move-open40 0.742! (18)
+  openarm-pick-place-100ep-v2: common bins push-close [], push-open [-45.0, -40.0, -35.0], move-close40 [-35.0, -30.0, -25.0, -20.0, -15.0, -10.0], move-open40 [-40.0]
+    b1 2026-03-06 08:35: push-close 0.281 [0.071,0.354] (100) binm n/a [n/a,n/a]  push-open 0.730 [0.662,0.823] (4394) binm 0.873 [0.670,0.943]  move-close40 0.779 [0.745,0.803] (69) binm 0.757 [0.734,0.794]  move-open40 0.750 [0.672,0.882] (44) binm 0.974 [0.960,1.065]
+       per common bin: push-close -  push-open -45:1.170(198) -40:0.847(2786) -35:0.603(1291)  move-close40 -35:0.720(9) -30:0.623(7) -25:0.806(14) -20:0.818(9) -15:0.735(15) -10:0.842(10)  move-open40 -40:0.974(12)
+       split-half odd: push-close 0.183 (49) push-open 0.784 (2097) move-close40 0.779! (29) move-open40 0.791! (20)
+       split-half even: push-close 0.286 (51) push-open 0.681 (2297) move-close40 0.772 (40) move-open40 0.730! (24)
+    b2 2026-03-06 09:49: push-close 0.418 [0.139,0.501] (38) binm n/a [n/a,n/a]  push-open 1.013 [0.960,1.092] (4407) binm 0.856 [0.797,0.898]  move-close40 0.769 [0.735,0.808] (83) binm 0.785 [0.742,0.819]  move-open40 1.116 [0.955,1.355] (30) binm 1.053 [0.984,1.082]
+       per common bin: push-close -  push-open -45:1.131(1749) -40:0.769(1415) -35:0.667(309)  move-close40 -35:0.701(14) -30:0.750(14) -25:0.867(15) -20:0.872(5) -15:0.777(10) -10:0.745(11)  move-open40 -40:1.053(9)
+       split-half odd: push-close 0.418! (24) push-open 1.106 (2134) move-close40 0.779 (45) move-open40 1.160! (8)
+       split-half even: push-close 0.503! (14) push-open 0.955 (2142) move-close40 0.737 (38) move-open40 1.082! (21)
+    b3 2026-03-10 07:13: push-close 0.510! [0.051,0.545] (21) binm n/a [n/a,n/a]  push-open 0.847 [0.789,0.882] (2966) binm 0.545 [0.527,0.615]  move-close40 0.637 [0.628,0.647] (112) binm 0.627 [0.593,0.647]  move-open40 0.789 [0.720,0.818] (36) binm 0.720 [0.630,0.786]
+       per common bin: push-close -  push-open -45:0.603(790) -40:0.574(523) -35:0.457(53)  move-close40 -35:0.505(13) -30:0.650(6) -25:0.659(20) -20:0.676(14) -15:0.637(21) -10:0.632(21)  move-open40 -40:0.720(11)
+       split-half odd: push-close 0.498! (20) push-open 0.862 (1587) move-close40 0.640 (56) move-open40 0.813! (14)
+       split-half even: push-close 0.530! (1) push-open 0.691 (1081) move-close40 0.637 (56) move-open40 0.762! (22)
+  openarm-pick-place-blue-20ep: common bins push-close [], push-open [-50.0, -45.0, -40.0], move-close40 [], move-open40 [-45.0]
+    b1 2026-03-06 10:08: push-close 0.056! [n/a,n/a] (2) binm n/a [n/a,n/a]  push-open 0.926 [0.774,1.077] (1389) binm 1.017 [0.899,1.092]  move-close40 0.789 [0.728,0.840] (32) binm n/a [n/a,n/a]  move-open40 0.752! [0.667,1.184] (22) binm 1.228 [1.184,1.458]
+       per common bin: push-close -  push-open -50:1.316(278) -45:1.062(599) -40:0.672(367)  move-close40 -  move-open40 -45:1.228(6)
+       split-half odd: push-close n/a (0) push-open 0.950 (688) move-close40 0.789! (10) move-open40 0.669! (16)
+       split-half even: push-close 0.056! (2) push-open 0.911 (666) move-close40 0.789! (22) move-open40 1.045! (6)
+    b2 2026-03-10 07:30: push-close n/a [n/a,n/a] (0) binm n/a [n/a,n/a]  push-open 0.852 [0.784,0.901] (991) binm 0.759 [0.704,0.805]  move-close40 0.652 [0.630,0.698] (42) binm n/a [n/a,n/a]  move-open40 0.730! [0.540,0.884] (26) binm 0.955 [0.852,0.999]
+       per common bin: push-close -  push-open -50:1.028(450) -45:0.569(295) -40:0.681(193)  move-close40 -  move-open40 -45:0.955(6)
+       split-half odd: push-close n/a (0) push-open 0.569 (226) move-close40 0.659! (18) move-open40 0.857! (9)
+       split-half even: push-close n/a (0) push-open 0.833 (492) move-close40 0.642! (24) move-open40 0.686! (17)
