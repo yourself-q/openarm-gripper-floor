@@ -27,7 +27,7 @@ funding, the data of other people. Figure: `floor_fig.png` (panels a–e).
 5. **After the pads land on a rigid object, the motor encoder keeps moving but the pads do not.** On 32 grasps of a wooden
    cube seen by the wrist camera, the encoder advances +1.02° while torque rises +2.49 Nm, and the finger edges move in the
    image by 0.11 of what the camera's own calibration predicts (median per edge; IQR 0.04–0.52). About 90 % of the
-   post-contact encoder travel is compliance between motor and pad (≈ 143 Nm/rad, *computed*). (§6.1–6.2)
+   post-contact encoder travel is compliance between motor and pad (≈ 140 Nm/rad, *computed*). (§6.1–6.2)
 6. **Unit A's level is a session value, not a constant of the unit.** It steps by 17 % between upload batches of a single
    dataset with the jaw angles and speeds matched (0.779 / 0.769 → 0.637 Nm; 0.789 → 0.652 Nm; bootstrap intervals
    disjoint). Four batches uploaded the same day span max/min 1.14; inside one batch the halves of 100ep-v2 agree to
@@ -235,7 +235,7 @@ Loading the measured floor into the official MJCF (`mjcf_floor.py`, *computed*):
 at 2 °/s under 0.11 Nm; `damping` 0, because the official 0.6 adds a viscous 1.2 × v that the data does not show
 (§4.2). A session-faithful model of unit A would also carry the angle-dependent opening side of §4.4 and a per-session
 level in 0.61–0.85 Nm (0.61–0.92 per dataset). After contact the MJCF's τ–q slope is 1050–1150 Nm/rad, 7–8× stiffer than
-the ≈ 143 Nm/rad computed in §6.2.
+the ≈ 140 Nm/rad computed in §6.2.
 
 ## 6. The wrist camera versus the encoder (measured)
 
@@ -255,13 +255,18 @@ scatter during holds.
 ### 6.2 Results on the wooden cube (unit A)
 
 - Calibration is smooth and monotone: left edge +2.63 px/deg, right −2.51 px/deg, gap −5.14 px/deg over −45..−21°
-  (4–5 px/deg near the hold angle). Extrapolated to the hold angle it gives a gap ≈ 100 px; the measured gap at hold is
-  ≈ 109 px with a 95–110 px cube between the pads (panel b). The ≈ 9 px excess has the sign a loaded, wound-up finger
-  would give; it is a 3° extrapolation into a changed scene, so it is listed as consistent, not as a measurement.
+  (4–5 px/deg near the hold angle). Extrapolated to the hold angle (−19.7°) the free-motion line gives a gap ≈ 97 px
+  (−4.18 px/deg fitted over −29..−21°; ≈ 100 px with the wider-range slope in the notes). The measured gap at hold is
+  117 px (median over 48 grasps, one value per grasp; IQR 111–122, range 95–136; the two example episodes in the notes
+  sit at 109 px; the cube's red width is 95–110 px) (panel b). The ≈ 20 px excess has the sign a loaded, wound-up
+  finger would give, but it is a 3° extrapolation into a changed scene, and the 40 px range across grasps says the hold
+  gap depends on more than the finger angle (how the cube sits between the pads), so it is listed as consistent, not as
+  a measurement.
 - 32 grasps. Encoder A→B: +1.02° (median; 0.57–1.64). Torque: +2.49 Nm. Predicted gap change: −5.1 px (−5.14 px/deg
   × 1.02°). Measured: +0.09 / −0.36 px (left / right edge). Visible fraction: median 0.11 per edge (IQR 0.04–0.52).
-  Arm-still subset (11 grasps, arm joint speed < 5 °/s): 0.14. Panel d of the figure also shows a gap-based variant
-  (−0.58 px, fraction 0.13) that is computed in `floor_fig.py` and is not in the notes.
+  Arm-still subset (11 grasps, arm joint speed < 5 °/s): 0.14. Panel d of the figure shows a gap-based variant computed
+  in `floor_fig.py` with the local slope near the hold angle (−4.2 px/deg): predicted −4.3 px, measured −0.58 px,
+  fraction 0.13 (IQR 0.04–0.63); it is not in the notes.
 - Edge scatter during holds: 0.70 px left, 0.49 px right (median of per-episode std). The predicted 2–4 px per pad is
   ≥ 4σ above it.
 - Timing. The image lags the state by about one frame in the landing sequences. Recomputing (b) with assumed lags
@@ -275,7 +280,7 @@ scatter during holds.
 **Reading** (confidence medium–high; one object, one unit, compressed video). About 90 % (median; 48–96 % over the IQR)
 of the ≈ 0.4 deg/Nm the encoder
 shows after contact is wind-up between the motor's encoder and the pad. A wooden cube does not shrink 1 mm per side, and
-the camera confirms the pads do not move. The gripper's own stiffness seen from the motor is ≈ 143 Nm/rad (*computed*
+the camera confirms the pads do not move. The gripper's own stiffness seen from the motor is ≈ 140 Nm/rad (*computed*
 from 1.02° / 2.49 Nm); objects stiffer than that are invisible to the encoder. The camera resolves the pad–object
 boundary to 0.5–0.7 px per edge, ≈ 0.2–0.27° of finger angle (per-edge slope 2.5–2.6 px/deg; unit B 0.4–0.8°), from
 640×480 H.264 at 30 fps; the 2.0 hardware's 1920×1200 global-shutter camera (official docs; frame rate not verified)
@@ -319,7 +324,7 @@ jitter 0.20–0.24 px. r = visible pad motion ÷ encoder-predicted motion, as in
   strawberry A→B5 0.37°; the cube's full A→B_end advance is 1.25°). The pads follow about half of the encoder's advance
   on the strawberry (post hoc 0.55–0.70) and almost none of it on the cube. This is a different unit, camera and
   detector, not a same-system control.
-- Under the series-spring model r = k_g / (k_g + 4 k_obj r_c²) with unit A's k_g borrowed (≈ 143 Nm/rad, used as 140) and r_c 0.06–0.097
+- Under the series-spring model r = k_g / (k_g + 4 k_obj r_c²) with unit A's k_g borrowed (≈ 140 Nm/rad) and r_c 0.06–0.097
   m, the post-hoc r gives k_obj 1.6–7.9 N/mm (1.6–11.6 with the open-end calibration): at the lower end of the
   pre-registered band for a fake (2–50 N/mm; the prop's material is not known) and 2–10× stiffer than a real strawberry.
   Compression itself is not visible (≈ 0.4 px per pad expected; the montages show none). Camera motion during the hold
@@ -387,7 +392,7 @@ the newton figures; it is not separated from a zero offset.
 | gravity 0.020 [0.002, 0.037] Nm (bound 0.045 for any mounting), dynamics ≤ 0.002 Nm | MJCF kinematics regression; speed and acceleration terms, post hoc | medium–high |
 | encoder +1.02°, τ +2.49 Nm after landing | 32 grasps | high |
 | pads move 0.11 of prediction (IQR 0.04–0.52) | 32 grasps, predicted motion ≥ 4σ above jitter, lag checked | medium–high |
-| 143 Nm/rad gripper stiffness | ratio of the two medians | computed |
+| 140 Nm/rad gripper stiffness | ratio of the two medians, 2.49 Nm / 1.02° | computed |
 | camera resolution ≈ 0.2–0.27° per edge (A), 0.4–0.8° (B) | per-edge jitter ÷ per-edge slope | medium |
 | fake strawberry r, pre-registered 0.39 / 0.64 | 71 / 32 grasps, ill-conditioned window | undecided |
 | fake strawberry r, post hoc 0.55–0.70 (0.46–0.59 other calibration) | windows chosen after the data, two uploads agree, calibration-dependent | medium, post hoc |
@@ -417,8 +422,15 @@ All in the Japanese notes with time stamps; collected here so the reader sees wh
 - Hold torque "5.01–5.45 Nm across seven sets" (10-12 draft and the first version of this note) → **5.01–5.31 Nm across
   five sets**; neither 5.45 nor a seventh set is in the notes.
 - Camera fraction "0.11–0.13" → **0.11** (per edge, as in the notes); 0.13 is a gap-based variant computed only in the
-  figure script. "Predicted −4.3 to −5.1 px" → **−5.1 px**; "IQR 0.04–0.6" → **0.04–0.52**; "hold gap 109–120 px" →
-  **≈ 109 px**; "4σ–8σ" → **≥ 4σ**.
+  figure script. "Predicted −4.3 to −5.1 px" → **−5.1 px** (−4.3 px is the figure's local-slope value, panel d);
+  "IQR 0.04–0.6" → **0.04–0.52**; "4σ–8σ" → **≥ 4σ**. "Hold gap 109–120 px" was first narrowed to "≈ 109 px" (the two
+  example episodes in the notes); when the figure was regenerated for release (2026-10-13) the median over 48 grasps was
+  measured as **117 px** (IQR 111–122) against an extrapolated 97 px, and §6.2 now says so.
+- Stiffness "≈ 143 Nm/rad" → **≈ 140 Nm/rad** (2026-10-13): 143 was 1 / (0.4 deg/Nm) with the ratio rounded first;
+  2.49 Nm / 1.02° gives 140. Nothing downstream changes (§6.3 already used 140).
+- Figure regenerated 2026-10-13 so that its titles say no more than the body: panel (e) "two units of the same gripper"
+  → two dataset groups, most likely two arms (unconfirmed); panel (d) labels the 0.13 as gap-based and names the 0.11
+  per edge; panel (b) shows both the measured hold gap (117 px) and the free-motion extrapolation (97 px).
 - Newtons: the Japanese notes convert unit A's pooled level (0.60–0.65 Nm → 3–5 N) and unit B's still band (0.3–0.7 N);
   the per-session 3–7 N and unit B's kinetic 1.0–1.7 N in §7 are conversions made for this note. The first version of
   this note wrote 3–8 N and 1–2 N.
