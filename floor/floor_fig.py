@@ -157,10 +157,10 @@ xx = np.array([pts[m_fit, 0].max(), hold_th])
 ax.plot(xx, np.polyval(pf, xx), ":", color="C3", lw=1.0, label=f"extrapolated to {hold_th:.1f} deg: {ext_gap:.0f} px")
 ax.plot([hold_th], [ext_gap], "s", mfc="none", color="C3", ms=6)
 ax.plot([hold_th], [hold_gap], "s", color="C3", ms=6,
-        label=f"hold on the cube: {hold_gap:.0f} px (median of {len(hold_eps)} grasps)")
+        label=f"hold on the cube: {hold_gap:.0f} px ({len(hold_eps)} grasps)")
 ax.set_xlabel("gripper encoder angle (deg; 0 = closed)"); ax.set_ylabel("image gap between finger edges (px)")
 ax.set_title(f"(b) self-calibration: still frames, nothing between the pads\n{s_hold:+.2f} px/deg over -29..-21 deg\nthe hold angle lies 3 deg beyond the last bin")
-ax.legend(fontsize=7.5, loc="lower left"); ax.grid(alpha=0.3)
+ax.legend(fontsize=7, loc="lower left"); ax.grid(alpha=0.3)
 
 # (c)
 ax = fig.add_subplot(gs[0, 2])
