@@ -25,3 +25,7 @@ dry run and mock only, never run on hardware).
 
 Data: `gtgando/*` and `xhaka3456/*` on Hugging Face (links in the note). Simulator: `enactic/openarm_mujoco`;
 the parameter request is `enactic/openarm#336`.
+
+## License
+
+MIT, see `LICENSE`; the datasets and the simulator named above keep their own licenses.
